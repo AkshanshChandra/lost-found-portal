@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Lost/Found Item</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Report Lost/Found Item</h1>
+
+  <form id="reportForm">
+    <label for="title">Item Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" required>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+      <option value="lost">Lost</option>
+      <option value="found">Found</option>
+    </select>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
