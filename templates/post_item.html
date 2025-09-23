@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Item - Lost & Found Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Post a Lost/Found Item</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Item Title" required><br>
+        <textarea name="description" placeholder="Item Description" required></textarea><br>
+        <select name="type" required>
+            <option value="lost">Lost</option>
+            <option value="found">Found</option>
+        </select><br>
+        <input type="file" name="image" accept="image/*"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+</body>
+</html>

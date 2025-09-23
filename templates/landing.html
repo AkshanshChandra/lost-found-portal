@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lost & Found Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('post_item') }}">Post Item</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>Welcome, {{ session['username'] }}</h2>
+
+        <!-- Search & Filter -->
+        <form method="GET" action="{{ url_for('home') }}" class="search-bar">
+            <input type="text" name="q" placeholder="Search items..." value="{{ request.args.get('q', '') }}">
+            <select name="filter">
+                <option value="" {% if not filter %}selected{% endif %}>All</option>
+                <option value="lost" {% if filter == 'lost' %}selected{% endif %}>Lost</option>
+                <option value="found" {% if filter == 'found' %}selected{% endif %}>Found</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Items Grid -->
+        <div class="grid">
+            {% for item in items %}
+                <div class="card">
+                    <a href="{{ url_for('item_detail', item_id=item['_id']|string) }}">
+                        {% if item['image'] %}
+                            <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" alt="Item Image">
+                        {% else %}
+                            <div class="placeholder">No Image</div>
+                        {% endif %}
+                    </a>
+                    <div class="card-body">
+                        <h3>
+                            <a href="{{ url_for('item_detail', item_id=item['_id']|string) }}">
+                                {{ item['title'] }}
+                            </a>
+                        </h3>
+                        <p class="type">{{ item['type']|capitalize }}</p>
+                        <p>
+                            {{ item['description'][:100] }}
+                            {% if item['description']|length > 100 %}...{% endif %}
+                        </p>
+                        <small>Posted by: {{ item['posted_by'] }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if items|length == 0 %}
+                <p>No items found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

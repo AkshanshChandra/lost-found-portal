@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - Lost & Found Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <h3>All Posts</h3>
+    <ul>
+        {% for item in items %}
+            <li>
+                <b>{{ item['title'] }}</b> ({{ item['type'] }}) - posted by {{ item['posted_by'] }}<br>
+                {{ item['description'] }}<br>
+                {% if item['image'] %}
+                    <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" width="150"><br>
+                {% endif %}
+                <a href="{{ url_for('admin_delete', item_id=item['_id']|string) }}" class="delete-link">Delete</a>
+                <hr>
+            </li>
+        {% endfor %}
+        {% if items|length == 0 %}
+            <p>No posts available.</p>
+        {% endif %}
+    </ul>
+</body>
+</html>

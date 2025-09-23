@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ item['title'] }} - Lost & Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('post_item') }}">Post Item</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        <h2>{{ item['title'] }}</h2>
+        <p class="type">{{ item['type']|capitalize }}</p>
+
+        {% if item['image'] %}
+            <img src="{{ url_for('static', filename='uploads/' + item['image']) }}" class="detail-img">
+        {% else %}
+            <div class="placeholder detail-placeholder">No Image</div>
+        {% endif %}
+
+        <p><b>Description:</b> {{ item['description'] }}</p>
+        <p><b>Posted By:</b> {{ item['posted_by'] }}</p>
+        {% if item.get('contact') %}
+            <p><b>Contact:</b> {{ item['contact'] }}</p>
+        {% endif %}
+
+        <p><a href="{{ url_for('home') }}">⬅ Back to Home</a></p>
+    </div>
+</body>
+</html>
